@@ -1,0 +1,30 @@
+.headerCon{
+    padding: 2rem 0;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+
+.headerCon h1{
+    text-align: center;
+    color: white;
+    letter-spacing: 0.1rem;
+}
+
+.aboutIcon{
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
+}
+
+.backIcon{
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
+}

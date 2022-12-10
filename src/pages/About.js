@@ -10,7 +10,7 @@ const About = () => {
         
         <div className='about'>
             <div className='aboutImg'>
-                <img src={process.env.PUBLIC_URL + '/static/images/words.png'} alt='words' />
+                <img src='/images/words.png' alt='words' />
             </div>
             <div className='aboutContent'>
             <h1>How To Play</h1>

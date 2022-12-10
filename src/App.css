@@ -109,12 +109,17 @@
     flex-direction: column;
   }
   .aboutContent{
+    
     width: 100%;
     padding-left:4rem;
     padding-right: 1rem;
   }
+  .about:last-of-type{
+    margin-top: 2rem;
+  }
   .about:last-of-type .aboutContent{
     padding-left: 5rem;
+    margin-top: 1rem;
     order: 3;
   }
 }

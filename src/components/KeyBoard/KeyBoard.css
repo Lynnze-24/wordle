@@ -1,7 +1,7 @@
 .KeyBoard{
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--keyGap);
     margin: 2rem 0;
     margin-top: 4rem;
 }

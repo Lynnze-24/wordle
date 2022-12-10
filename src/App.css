@@ -3,6 +3,7 @@
   --blockSize:4rem;
   --blockGap:1rem;
   --keySize:3rem;
+  --keyGap:0.5rem;
   width: 100%;
   min-height: 100vh;
   overflow: auto;
@@ -17,6 +18,7 @@
     --blockSize:2.5rem;
     --keySize:2rem;
     --blockGap:0.5rem;
+    --keyGap:0.4rem;
   }
 }
 

@@ -1,15 +1,16 @@
 import React from 'react'
 import Footer from '../components/footer/Footer'
 
-const About = () => {
 
+const About = () => {
+    console.log(process.env)
 
     return (
         <>
         
         <div className='about'>
             <div className='aboutImg'>
-                <img src='/words.png' alt='words' />
+                <img src={process.env.PUBLIC_URL + '/static/images/words.png'} alt='words' />
             </div>
             <div className='aboutContent'>
             <h1>How To Play</h1>

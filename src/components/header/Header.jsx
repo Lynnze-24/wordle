@@ -8,16 +8,20 @@ const Header = () => {
     
     return (
         <header className="headerCon">
+            <div  style={location?.pathname==='/' ? {display:'none'}:null} 
+             className='backIcon'>
             <FaChevronLeft
-            className='backIcon'
             onClick={()=> navigate('/')}
-             style={location?.pathname==='/' && {display:'none'}} 
              />
+             </div>
             <h1>Wordle</h1>
-            <FaQuestionCircle 
-            style={location?.pathname==='/howToPlay' && {display:'none'}} 
-            onClick={()=> navigate('/howToPlay')} 
-            className='aboutIcon' />
+            <div  style={location?.pathname==='/howToPlay' ? {display:'none'}:null} 
+             className="aboutIcon">
+                <FaQuestionCircle 
+                onClick={()=> navigate('/howToPlay')} 
+                 />
+            </div>
+            
         </header>
     )
 }

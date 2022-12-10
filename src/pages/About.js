@@ -22,6 +22,20 @@ const About = () => {
             </div>
             
         </div>
+        <div className='about'>
+            <div className='aboutImg'>
+                <img src='/images/tip.png' alt='words' />
+            </div>
+            <div className='aboutContent'>
+            <h1>Tips</h1>
+            <ul className='tips'>
+                <li>Red means letter you guessed isn't in the you guessednswer.</li>
+                <li style={{'--bgClr':'blue'}} >Yellow means letter you guessed is in the answer but not in correct place.</li>
+                <li>Green means letter you guessed is correct.</li>
+            </ul>
+            </div>
+            
+        </div>
         <Footer isMain={false} />
         </>
     )

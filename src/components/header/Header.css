@@ -1,37 +1,42 @@
 .headerCon{
-    padding: 2rem 0;
     position: relative;
     margin-bottom: 1rem;
 }
 
-@media screen and (max-width:600px) {
-    .headerCon{
-        padding: 1rem 0;
-        padding-top: 2rem;
-    }
-}
+
 
 
 .headerCon h1{
     text-align: center;
     color: white;
     letter-spacing: 0.1rem;
+    height: 5rem;
+    line-height: 5rem;
 }
 
-.aboutIcon{
+.aboutIcon,.backIcon{
     position: absolute;
-    top: 2rem;
-    right: 3rem;
+    top: 0;
+    height: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 2rem;
     font-size: 1.8rem;
     cursor: pointer;
     color: white;
 }
 
 .backIcon{
-    position: absolute;
-    top: 2rem;
-    left: 3rem;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: white;
+    left: 2rem;
+    right: unset;
+}
+
+@media screen and (max-width:600px) {
+    .aboutIcon{
+        right: 1rem;
+    }
+    .backIcon{
+        left: 1rem;
+    }
 }

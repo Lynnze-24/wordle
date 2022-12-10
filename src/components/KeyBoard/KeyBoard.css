@@ -1,0 +1,13 @@
+.KeyBoard{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    margin-top: 4rem;
+}
+
+@media screen and (max-width:600px) {
+    .KeyBoard{
+     margin-top: 2rem;
+    }
+}

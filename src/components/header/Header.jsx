@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Header = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location)
+    
     return (
         <header className="headerCon">
             <FaChevronLeft
@@ -15,8 +15,8 @@ const Header = () => {
              />
             <h1>Wordle</h1>
             <FaQuestionCircle 
-            style={location?.pathname==='/about' && {display:'none'}} 
-            onClick={()=> navigate('/about')} 
+            style={location?.pathname==='/howToPlay' && {display:'none'}} 
+            onClick={()=> navigate('/howToPlay')} 
             className='aboutIcon' />
         </header>
     )

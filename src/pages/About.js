@@ -1,9 +1,12 @@
 import React from 'react'
+import Footer from '../components/footer/Footer'
 
 const About = () => {
 
 
     return (
+        <>
+        
         <div className='about'>
             <div className='aboutImg'>
                 <img src='/words.png' alt='words' />
@@ -18,7 +21,8 @@ const About = () => {
             </div>
             
         </div>
-       
+        <Footer isMain={false} />
+        </>
     )
 }
 

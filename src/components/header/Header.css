@@ -1,7 +1,14 @@
 .headerCon{
     padding: 2rem 0;
     position: relative;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width:600px) {
+    .headerCon{
+        padding: 1rem 0;
+        padding-top: 2rem;
+    }
 }
 
 

@@ -9,3 +9,17 @@ footer{
     color: white;
     line-height: 2rem;
 }
+
+@media screen and (max-height:750px) {
+    .footer{
+       margin-top: 0;
+       font-size: 1rem;
+       line-height: 1.2rem;
+    }
+}
+
+@media screen and (max-height:700px) {
+    .footer{
+        display: none;
+    }
+}

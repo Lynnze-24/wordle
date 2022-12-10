@@ -1,0 +1,24 @@
+.KeyBlocks{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.KeyBlock{
+    display: grid;
+    place-items: center;
+    color: white;
+    width: var(--keySize);
+    height: var(--keySize);
+    cursor: pointer;
+    user-select: none;
+    border-radius: 0.5rem;
+    background-color: #131419;
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 50%), -3px -3px 7px rgb(255 255 255 / 5%);
+}
+
+.KeyBlock.pressed{
+    box-shadow: inset 2px 2px 5px rgb(0 0 0 / 50%), inset -3px -3px 7px rgb(255 255 255 / 5%);
+    text-shadow: 1px 1px 10px #f8f5f599;
+}

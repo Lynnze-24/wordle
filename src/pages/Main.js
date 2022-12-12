@@ -1,26 +1,69 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useClickwordContext } from '../components/context/ClickwordProvider';
 import KeyBoard from '../components/KeyBoard/KeyBoard';
 import Blocks from '../components/displayBlocks/Blocks'
-import fiveWords from '../wordFive'
 import Footer from '../components/footer/Footer';
+import {  FaTimes, } from 'react-icons/fa';
 
 const Main = () => {
 
   const [answer,setAnswer] = useState('');
   const [inputs, setInputs] = useState(Array(6).fill(''));
   const [currentIndex,setCurrentIndex] = useState(0)
+  const [fiveWords, setFiveWords] = useState([])
+  const [notExist, setNotExist] = useState('')
+  const [meaning, setMeaning] = useState('')
   const wordLength = 5;
   const[isGameOver,setIsGameOver] = useState(false);
    const {setClickedWord} = useClickwordContext()
+  const firstLoad = useRef(false)
+  const ansCheck = useRef(false)
+
+  
+   useEffect(()=>{
+     if(!fiveWords.length && !firstLoad.current){
+       console.log('firstload')
+       firstLoad.current = true
+      fetch('/fiveWords.txt')
+      .then((r)=> r.text())
+      .then(d => {
+        let dArr = d.split('\n')
+        setFiveWords(dArr)
+        setAnswer(dArr[Math.floor(Math.random() *  dArr.length)])
+      })
+      .catch(e=> console.log(e))
+     }
+     
+   },[])
+
   
 
   useEffect(()=>{
-    setAnswer(fiveWords[Math.floor(Math.random() *  fiveWords.length)])
-  },[])
+    
+    if(answer && fiveWords.length && !ansCheck.current){
+     
+      ansCheck.current = true;
+      console.log('answer check')
+      fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answer}`)
+      .then((r)=> {
+        
+        if(r.ok) return r.json()
+        throw new Error('Smth went wrong!')
+      })
+      .then(d=> {
+        console.log(d)
+        ansCheck.current = false;
+        setMeaning(d[0]?.meanings[0]?.definitions[0]?.definition)
+      })
+      .catch((e)=> {
+        ansCheck.current = false;
+        setAnswer(fiveWords[Math.floor(Math.random() *  fiveWords.length)])
+      })
+    }
+      
+  },[answer,fiveWords])
 
   const resetWordle = ()=>{
-    
     setInputs(Array(6).fill(''))
     setCurrentIndex(0)
     setIsGameOver(false)
@@ -40,14 +83,26 @@ const Main = () => {
         setInputs((prev) => prev.map((x,i)=> (i=== currentIndex && x.length>0)? x.substring(0,x.length-1) :x ))
       }
       if(e.code === 'Enter'){
-        setClickedWord(e.key)
-        if(isGameOver){
-          resetWordle()
-        }
-        if(currentIndex<6 && inputs[currentIndex].length === wordLength){
-          setCurrentIndex((prev)=> prev+1)
-          if(answer === inputs[currentIndex] || currentIndex===5) setIsGameOver(true);
-        }
+        setNotExist('')
+        if(inputs[currentIndex].length !== wordLength)return;
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputs[currentIndex]}`).then(
+          (r)=> {
+            console.log(r)
+            if(!r.ok) {
+              throw new Error('Smth went wrong!')
+            }
+          setClickedWord(e.key)
+          if(isGameOver){
+            resetWordle()
+          }
+          if(currentIndex<6 && inputs[currentIndex].length === wordLength){
+            setCurrentIndex((prev)=> prev+1)
+            if(answer === inputs[currentIndex] || currentIndex===5) setIsGameOver(true);
+          }
+        }).catch((err)=>{
+          setNotExist(inputs[currentIndex]);
+        })
+        
         
       }
 
@@ -60,6 +115,10 @@ const Main = () => {
     return (
         <>
          <div className='blockRowCon'>
+        {notExist && <p className='notExist'><q>{notExist}</q> does not exist! <span 
+                                                                                onClick={()=> setNotExist('') }>
+          <FaTimes className='notExistDel' />
+          </span></p>}
           {
             inputs.map((input,index)=> (
               <Blocks isFinished={currentIndex>index} answer={answer} key={index} wordLength={wordLength} word={input} />
@@ -67,6 +126,7 @@ const Main = () => {
           }
         
         </div>
+        <p className='meaning'>{meaning && `Hint : ${meaning}`}</p>
         <KeyBoard />
         {isGameOver && (<div className='gameOver'>
           <p>{answer === inputs[currentIndex-1]? 'Congratulations. You Won!' : 'Sorry. You Lose!'}</p> 

@@ -161,3 +161,51 @@
 .tips li:nth-of-type(3):after{
   --bgClr:#41ca41a8;
 }
+
+.meaning{
+  font-size: 0.9rem;
+  color: white;
+  margin: 1.5rem auto;
+  width: max-content;
+  max-width: 100%;
+  padding: 0 1rem;
+  line-height: 1.5rem;
+}
+
+.notExist{
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.805);
+  text-shadow: 1px 1px 0.5px red;
+  text-align: center;
+  margin-bottom: 1rem;
+  /* border: 0.1rem dashed #ef3e3ed1; */
+  border-radius: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 0.5rem 2rem;  */
+}
+
+.notExist span{
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+  position: relative;
+  margin-left: 1rem;
+  display: block;
+  height: 1.5rem;
+  width: 1.5rem;
+  color:rgb(255, 255, 255);
+  text-shadow: 1px 1px 0.5px red;
+  background-color:#ef3e3ed1;
+  border-radius: 50%;
+  border: 0.1rem dashed #ef3e3ed1;
+  cursor: pointer;
+}
+
+.notExistDel{
+  position: absolute;
+  top: 50%;
+  left:50%;
+  
+  transform: translate(-50%,-50%);
+}

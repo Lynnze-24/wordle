@@ -13,12 +13,14 @@ const Main = () => {
   const [currentIndex,setCurrentIndex] = useState(0)
   const [fiveWords, setFiveWords] = useState([])
   const [notExist, setNotExist] = useState('')
+  const [isFetching, setIsFetching] = useState(false)
   const [meaning, setMeaning] = useState('')
   const wordLength = 5;
   const[isGameOver,setIsGameOver] = useState(false);
    const {setClickedWord} = useClickwordContext()
   const firstLoad = useRef(false)
   const ansCheck = useRef(false)
+  
 
   const{showHint,grammarCheck} = useSettingContext()
 
@@ -87,8 +89,9 @@ const Main = () => {
       }
       if(e.code === 'Enter'){
         setNotExist('')
-        if(inputs[currentIndex].length !== wordLength)return;
+        if((inputs[currentIndex].length !== wordLength) || isFetching)return;
         if(grammarCheck){
+          setIsFetching(true);
           fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputs[currentIndex]}`).then(
           (r)=> {
             console.log(r)
@@ -101,9 +104,11 @@ const Main = () => {
           }
           if(currentIndex<6 && inputs[currentIndex].length === wordLength){
             setCurrentIndex((prev)=> prev+1)
+            setIsFetching(false)
             if(answer === inputs[currentIndex] || currentIndex===5) setIsGameOver(true);
           }
         }).catch((err)=>{
+          setIsFetching(false)
           setNotExist(inputs[currentIndex]);
         })
         }else{
@@ -125,7 +130,7 @@ const Main = () => {
     document.addEventListener('keyup', keyupHandler)
     return () => document.removeEventListener('keyup', keyupHandler)
     
-  }, [currentIndex,wordLength,inputs,answer,isGameOver,setClickedWord,grammarCheck])
+  }, [currentIndex,isFetching,wordLength,inputs,answer,isGameOver,setClickedWord,grammarCheck])
 
     return (
         <>

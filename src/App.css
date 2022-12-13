@@ -129,8 +129,8 @@
   position: absolute;
   width: 6rem;
   height: 6rem;
-  top: 5.4rem;
-  left: 4.6rem;
+  top: 4.5rem;
+  left: 5.6rem;
   animation: cogAntiClockwise 10s linear infinite;
 }
 
@@ -145,7 +145,7 @@
 .settingImg img:last-of-type{
   width: 7rem;
   height: 7rem;
-  top: 0.2rem;
+  top: -0.8rem;
   left: 6.6rem;
 }
 

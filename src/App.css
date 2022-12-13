@@ -106,6 +106,10 @@
 
 
 /* setting */
+.setting{
+  padding-top: 2rem;
+}
+
 .settingList{
   margin-top: 2rem;
   list-style: none;
@@ -114,6 +118,67 @@
 .settingList li{
   margin-bottom: 1.5rem;
 }
+
+.settingImg{
+  position: relative;
+  height: 12rem;
+  width: 15rem;
+}
+
+.settingImg img{
+  position: absolute;
+  width: 6rem;
+  height: 6rem;
+  top: 5.4rem;
+  left: 4.6rem;
+  animation: cogAntiClockwise 10s linear infinite;
+}
+
+.settingImg img:first-of-type{
+  width: 8rem;
+  height: 8rem;
+  top: 0rem;
+  left: 1rem;
+  animation: cogClockwise 10s linear infinite;
+}
+
+.settingImg img:last-of-type{
+  width: 7rem;
+  height: 7rem;
+  top: 0.2rem;
+  left: 6.6rem;
+}
+
+/* hint */
+
+.meaning{
+  font-size: 0.9rem;
+  color: white;
+  margin: 1.5rem auto;
+  width: max-content;
+  max-width: 100%;
+  padding: 0 2.5rem;
+  line-height: 1.5rem;
+}
+
+@keyframes cogClockwise {
+  from{
+    transform: rotateZ(0deg);
+  }
+  to{
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes cogAntiClockwise {
+  from{
+    transform: rotateZ(0deg);
+  }
+  to{
+    transform: rotateZ(-360deg);
+  }
+}
+
 
 @media screen and (max-width:650px) {
   .about,.setting{
@@ -133,11 +198,18 @@
     margin-top: 1rem;
     order: 3;
   }
+  .setting{
+    padding-top: 0;
+  }
+  .meaning{
+    padding: 0 1.5rem;
+  }
+  
 }
 
 @media screen and (max-width:500px) {
  
-  .aboutContent,.settingContent{
+  .aboutContent{
    font-size: 1.2rem;
   }
   
@@ -173,15 +245,7 @@
   --bgClr:#41ca41a8;
 }
 
-.meaning{
-  font-size: 0.9rem;
-  color: white;
-  margin: 1.5rem auto;
-  width: max-content;
-  max-width: 100%;
-  padding: 0 2.5rem;
-  line-height: 1.5rem;
-}
+
 
 .notExist{
   font-size: 0.9rem;

@@ -12,6 +12,8 @@ const Setting = () => {
         <div className='setting'>
             <div className='settingImg'>
                 <img src='/images/cog.png' alt='cog' />
+                <img src='/images/cog.png' alt='cog' />
+                <img src='/images/cog.png' alt='cog' />
             </div>
             <div className='settingContent'>
             <h1>Settings</h1>

@@ -1,6 +1,6 @@
 import React from 'react'
 import './Header.css';
-import {  FaChevronLeft, FaQuestionCircle } from "react-icons/fa";
+import {  FaChevronLeft, FaCog, FaQuestionCircle } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 const Header = () => {
     const navigate = useNavigate()
@@ -8,12 +8,16 @@ const Header = () => {
     
     return (
         <header className="headerCon">
-            <div  style={location?.pathname==='/' ? {display:'none'}:null} 
+           { location?.pathname==='/' ? (<div 
              className='backIcon'>
-            <FaChevronLeft
-            onClick={()=> navigate('/')}
-             />
-             </div>
+            <FaCog
+            onClick={()=> navigate('/setting')}
+             /></div>):(<div 
+                className='backIcon'>
+               <FaChevronLeft
+               onClick={()=> navigate('/')}
+                /></div>)}
+             
             <h1>Wordle</h1>
             <div  style={location?.pathname==='/howToPlay' ? {display:'none'}:null} 
              className="aboutIcon">

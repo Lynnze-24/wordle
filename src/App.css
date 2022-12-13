@@ -63,7 +63,7 @@
 
 /* about */
 
-.about{
+.about,.setting{
   display: flex;
   gap: 0;
   justify-content: center;
@@ -78,16 +78,16 @@
 
 
 
-.aboutImg{
+.aboutImg,.settingImg{
   width: 40%;
 }
 
-.aboutImg img{
+.aboutImg img,.settingImg img{
   max-width: 100%;
   max-height: 100%;
 }
 
-.aboutContent{
+.aboutContent,.settingContent{
   width: 50%;
   color: white;
   font-size: 1.5rem;
@@ -99,16 +99,27 @@
   margin-bottom: 0.5rem;
 }
 
-.aboutContent h1{
+.aboutContent h1,.settingContent h1{
   margin-bottom: 1.2rem;
   font-size: 1.8rem;
 }
 
+
+/* setting */
+.settingList{
+  margin-top: 2rem;
+  list-style: none;
+}
+
+.settingList li{
+  margin-bottom: 1.5rem;
+}
+
 @media screen and (max-width:650px) {
-  .about{
+  .about,.setting{
     flex-direction: column;
   }
-  .aboutContent{
+  .aboutContent,.settingContent{
     
     width: 100%;
     padding-left:4rem;
@@ -126,7 +137,7 @@
 
 @media screen and (max-width:500px) {
  
-  .aboutContent{
+  .aboutContent,.settingContent{
    font-size: 1.2rem;
   }
   
@@ -168,7 +179,7 @@
   margin: 1.5rem auto;
   width: max-content;
   max-width: 100%;
-  padding: 0 1rem;
+  padding: 0 2.5rem;
   line-height: 1.5rem;
 }
 

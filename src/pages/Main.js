@@ -4,6 +4,7 @@ import KeyBoard from '../components/KeyBoard/KeyBoard';
 import Blocks from '../components/displayBlocks/Blocks'
 import Footer from '../components/footer/Footer';
 import {  FaTimes, } from 'react-icons/fa';
+import { useSettingContext } from '../components/context/SettingProvider';
 
 const Main = () => {
 
@@ -18,6 +19,8 @@ const Main = () => {
    const {setClickedWord} = useClickwordContext()
   const firstLoad = useRef(false)
   const ansCheck = useRef(false)
+
+  const{showHint,grammarCheck} = useSettingContext()
 
   
    useEffect(()=>{
@@ -40,7 +43,7 @@ const Main = () => {
 
   useEffect(()=>{
     
-    if(answer && fiveWords.length && !ansCheck.current){
+    if(answer && showHint && fiveWords.length && !ansCheck.current){
      
       ansCheck.current = true;
       console.log('answer check')
@@ -61,7 +64,7 @@ const Main = () => {
       })
     }
       
-  },[answer,fiveWords])
+  },[answer,fiveWords,showHint])
 
   const resetWordle = ()=>{
     setInputs(Array(6).fill(''))
@@ -85,7 +88,8 @@ const Main = () => {
       if(e.code === 'Enter'){
         setNotExist('')
         if(inputs[currentIndex].length !== wordLength)return;
-        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputs[currentIndex]}`).then(
+        if(grammarCheck){
+          fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputs[currentIndex]}`).then(
           (r)=> {
             console.log(r)
             if(!r.ok) {
@@ -102,6 +106,17 @@ const Main = () => {
         }).catch((err)=>{
           setNotExist(inputs[currentIndex]);
         })
+        }else{
+          setClickedWord(e.key)
+          if(isGameOver){
+            resetWordle()
+          }
+          if(currentIndex<6 && inputs[currentIndex].length === wordLength){
+            setCurrentIndex((prev)=> prev+1)
+            if(answer === inputs[currentIndex] || currentIndex===5) setIsGameOver(true);
+          }
+        }
+        
         
         
       }
@@ -110,12 +125,12 @@ const Main = () => {
     document.addEventListener('keyup', keyupHandler)
     return () => document.removeEventListener('keyup', keyupHandler)
     
-  }, [currentIndex,wordLength,inputs,answer,isGameOver,setClickedWord])
+  }, [currentIndex,wordLength,inputs,answer,isGameOver,setClickedWord,grammarCheck])
 
     return (
         <>
          <div className='blockRowCon'>
-        {notExist && <p className='notExist'><q>{notExist}</q> does not exist! <span 
+        {(notExist && grammarCheck) && <p className='notExist'><q>{notExist}</q> does not exist! <span 
                                                                                 onClick={()=> setNotExist('') }>
           <FaTimes className='notExistDel' />
           </span></p>}
@@ -126,7 +141,7 @@ const Main = () => {
           }
         
         </div>
-        <p className='meaning'>{meaning && `Hint : ${meaning}`}</p>
+        {showHint && (<p className='meaning'>{meaning && `Hint : ${meaning}`}</p>)}
         <KeyBoard />
         {isGameOver && (<div className='gameOver'>
           <p>{answer === inputs[currentIndex-1]? 'Congratulations. You Won!' : 'Sorry. You Lose!'}</p> 

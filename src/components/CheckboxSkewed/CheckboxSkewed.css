@@ -1,0 +1,56 @@
+.checkboxSkewed{
+    display: flex;
+    align-items: center;
+}
+
+.skewCon{
+    position: relative;
+    overflow: hidden;
+    width: 4rem;
+    height: 2.5rem;
+    font-size: 1.5rem;
+    transform: skew(-10deg);
+    backface-visibility: hidden;
+    transition: all .2s ease;
+    font-family: sans-serif;
+    background: rgb(255, 255, 255);
+    cursor: pointer;
+
+}
+
+.skewCon::after,
+.skewCon::before {
+  transform: skew(10deg);
+  display: inline-block;
+  transition: all .2s ease;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  line-height: 2.5rem;
+  font-weight: bold;
+  color: rgb(232, 230, 230);
+  text-shadow: 0 1px 0 rgba(0,0,0,.4);
+}
+
+.skewCon::after {
+    left: 100%;
+    content: 'ON';
+  }
+  
+.skewCon::before {
+    left: 0;
+    content:'OFF';
+}
+
+.skewCon.active::after{
+    left: 0;
+}
+
+.skewCon.active::before{
+    left: -100%;
+}
+
+.skewCon.active{
+    background-color: #7dc97de9;
+}

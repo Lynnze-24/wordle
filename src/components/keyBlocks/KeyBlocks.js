@@ -8,6 +8,8 @@ const KeyBlock = ({keyItem})=> {
     const [isClicking, setIsClicking] = useState(false)
     const {clickedWord, setClickedWord} = useClickwordContext()
 
+
+    
     
     const keyClickHandler = useCallback(()=> {
         setIsClicking(true)
@@ -15,28 +17,26 @@ const KeyBlock = ({keyItem})=> {
             setIsClicking(false)
             if(clickedWord)setClickedWord('')
         },100)
-     
-        
     },[clickedWord,setClickedWord])
 
-    useEffect(()=>{
-        if(clickedWord===keyItem){
-            keyClickHandler()
-
-        }
-    },[clickedWord,setClickedWord,keyClickHandler,keyItem])
-
-    useEffect(() => {
-        if(!clickedWord && isClicking){
+    const keyBoardVirtualHandler = () => {
             const code =(keyItem ==='Enter' || keyItem === 'Backspace') ? keyItem : `Key${keyItem.toUpperCase()}`
             const event = new KeyboardEvent('keyup', {key: keyItem, code: code,});
             document.dispatchEvent(event);
+            keyClickHandler()
+    }
+
+    useEffect(()=>{
+        if(clickedWord===keyItem && !isClicking){
+            keyClickHandler()
         }
-    }, [isClicking,keyItem,clickedWord])
-    // style={(keyItem ==='Enter' || keyItem === 'Backspace') ? {width:'6rem'}:null}
+    },[clickedWord,isClicking,keyClickHandler,keyItem])
+
+   
+    
 
     return(
-        <div onClick={keyClickHandler} className={`KeyBlock ${isClicking && 'pressed'}`}>
+        <div onClick={keyBoardVirtualHandler} className={`KeyBlock ${isClicking && 'pressed'}`}>
             {keyItem ==='Enter'? (<FaLevelDownAlt style={{transform:'rotateZ(90deg)'}}/>) :
             keyItem ==='Backspace'?(<FaArrowLeft/>) :keyItem}
         </div>

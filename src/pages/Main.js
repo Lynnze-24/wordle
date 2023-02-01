@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useClickwordContext } from '../components/context/ClickwordProvider';
 import KeyBoard from '../components/KeyBoard/KeyBoard';
 import Blocks from '../components/displayBlocks/Blocks'
@@ -39,7 +39,7 @@ const Main = () => {
       .catch(e=> console.log(e))
      }
      
-   },[])
+   },[fiveWords.length])
 
   
 
@@ -49,6 +49,7 @@ const Main = () => {
      
       ansCheck.current = true;
       console.log('answer check')
+      setMeaning('Loading...')
       fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${answer}`)
       .then((r)=> {
         
@@ -68,14 +69,15 @@ const Main = () => {
       
   },[answer,fiveWords,showHint])
 
-  const resetWordle = ()=>{
+  const resetWordle = useCallback(()=>{
     setInputs(Array(6).fill(''))
     setCurrentIndex(0)
     setIsGameOver(false)
     setAnswer(fiveWords[Math.floor(Math.random() *  fiveWords.length)])
-  }
+  },[fiveWords])
 
   useEffect(() => {
+ 
     const keyupHandler = (e)=> {
       
       console.log(e)
@@ -128,9 +130,11 @@ const Main = () => {
 
     }
     document.addEventListener('keyup', keyupHandler)
-    return () => document.removeEventListener('keyup', keyupHandler)
+    return () => {
+      document.removeEventListener('keyup', keyupHandler);
+    }
     
-  }, [currentIndex,isFetching,wordLength,inputs,answer,isGameOver,setClickedWord,grammarCheck])
+  }, [answer,currentIndex,grammarCheck,inputs,isFetching,isGameOver,resetWordle,setClickedWord])
 
     return (
         <>
@@ -146,7 +150,7 @@ const Main = () => {
           }
         
         </div>
-        {showHint && (<p className='meaning'>{meaning && `Hint : ${meaning}`}</p>)}
+        {showHint && (<p className='meaning'>{meaning ? `Hint : ${meaning}`:'No Hints available.'}</p>)}
         <KeyBoard />
         {isGameOver && (<div className='gameOver'>
           <p>{answer === inputs[currentIndex-1]? 'Congratulations. You Won!' : 'Sorry. You Lose!'}</p> 

@@ -111,7 +111,10 @@ const Main = () => {
           }
         }).catch((err)=>{
           setIsFetching(false)
-          setNotExist(inputs[currentIndex]);
+          console.log(err.message,'error fetching')
+          if(err.message ==='Smth went wrong!'){
+            setNotExist(inputs[currentIndex]);
+          }
         })
         }else{
           setClickedWord(e.key)

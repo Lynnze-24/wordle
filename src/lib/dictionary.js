@@ -15,8 +15,8 @@ const MAX_DEFINITIONS = 6;
 const POS = { n: 'noun', v: 'verb', adj: 'adjective', adv: 'adverb' };
 const LOW_VALUE_TAG = /obsolete|archaic|rare|dialect|historical|slang|vulgar|derogatory|offensive|dated|nonstandard|informal/i;
 const POINTER = /^(?:(?:alternative|obsolete|archaic|dated|nonstandard)\s+(?:form|spelling)|misspelling|abbreviation|initialism|acronym|ellipsis|only used in)\b/i;
-// Encyclopedia-style entries ("A surname.", "A town in Wales.") make useless hints.
-const PROPER = /\b(?:surname|given name)\b|^an? (?:[a-z-]+ )?(?:city|town|village|hamlet|river|county|municipality|suburb|parish|commune|place|community|locality)\b.*\bin\b/i;
+// Encyclopedia-style entries ("A surname.", "A placename", "A town in Wales.") make useless hints.
+const PROPER = /\b(?:surname|given name|family name|placename|place name|toponym)\b|^an? (?:[a-z-]+ )?(?:city|town|village|hamlet|river|county|municipality|suburb|parish|commune|place|community|locality)\b.*\bin\b/i;
 const INFLECTION = /^(?:(?:the\s+)?plural|.*\b(?:past|present|participle|singular|comparative|superlative)\b).*?\bof\s+["“]?([a-z]+)["”]?\.?$/i;
 
 const cache = new Map();

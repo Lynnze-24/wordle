@@ -26,7 +26,7 @@ describe('lookupWord', () => {
     global.fetch = jest.fn((url) => {
       if (url.includes('dictionaryapi')) return json({}, false, 404);
       if (url.includes('sp=seals')) {
-        return json([{ word: 'seals', defs: ['n\tAn unincorporated community in Georgia, United States.', 'n\tA Cornish habitational surname.'] }]);
+        return json([{ word: 'seals', defs: ['n\tAn unincorporated community in Georgia, United States.', 'n\tA Cornish habitational surname.', 'n\tA placename'] }]);
       }
       if (url.includes('sp=seal&')) return json([{ word: 'seal', defs: ['n\tA pinniped, a marine mammal with flippers.'] }]);
       return json([]);

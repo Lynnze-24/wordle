@@ -1,126 +1,249 @@
 .App{
-  --primary:#131419;
-  --blockSize:4rem;
-  --blockGap:1rem;
-  --keySize:3rem;
-  --keyGap:0.5rem;
   width: 100%;
-  min-height: 100vh;
-  overflow: auto;
   max-width: 50rem;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
-  background-color: var(--primary);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
-@media screen and (max-width:600px) {
-  .App{
-    --blockSize:2.5rem;
-    --keySize:2rem;
-    --blockGap:0.5rem;
-    --keyGap:0.4rem;
+/* High contrast palette (Settings → High Contrast Colors). */
+.App.contrast{
+  --correct: #e8692d;
+  --present: #3d8fd6;
+  --absent: #3d3f4a;
+}
+
+.srOnly{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* game: fills exactly one screen so the keyboard never scrolls away */
+
+.game{
+  width: 100%;
+  max-width: 32rem;
+  height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.boardWrap{
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem 1rem 0.5rem;
+  container-type: size;
+}
+
+.gameBar{
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.gameBar .btn{
+  min-width: 8rem;
+}
+
+/* buttons */
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.9rem;
+  padding: 0.6rem 1.2rem;
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, filter 0.15s;
+}
+
+.btn.primary{
+  color: var(--tile-text);
+  background: var(--correct);
+  border-color: transparent;
+}
+
+@media (hover: hover) {
+  .btn:hover{
+    background: var(--surface-2);
+  }
+  .btn.primary:hover{
+    background: var(--correct);
+    filter: brightness(1.1);
   }
 }
 
-.blockRowCon{
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  align-items: center;
-  gap: var(--blockGap);
+.btn:focus-visible,
+.linkButton:focus-visible,
+.hintButton:focus-visible,
+.hintNext:focus-visible{
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
-.gameOver{
-  position: absolute;
-  inset: 0;
-  width: 20rem;
-  height: 13rem;
-  margin: auto;
-  background-color: rgb(255, 237, 237);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  border-radius: 0.5rem;
-}
-
-.gameOver p {
-  font-size: 1.5rem;
-}
-
-.gameOver button {
-  font-size: 1rem;
-  outline: none;
+.linkButton{
+  padding: 0;
+  color: var(--text);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
   border: none;
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--primary);
-  background-color: transparent;
-  border-radius: 0.5rem;
   cursor: pointer;
 }
 
+/* about & setting pages */
 
-/* about */
+.page{
+  width: 100%;
+  padding: 1.5rem 1.5rem 0;
+}
 
 .about,.setting{
   display: flex;
-  gap: 0;
+  gap: 2.5rem;
   justify-content: center;
   align-items: center;
+}
+
+.about + .about{
+  margin-top: 2.5rem;
 }
 
 .about:last-of-type .aboutImg{
   order: 2;
 }
 
-
-
-
-
-.aboutImg,.settingImg{
-  width: 40%;
+.aboutImg{
+  flex: 0 0 34%;
+  max-width: 16rem;
 }
 
-.aboutImg img,.settingImg img{
+.aboutImg img{
+  display: block;
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
+  border-radius: 1rem;
 }
 
 .aboutContent,.settingContent{
-  width: 50%;
-  color: white;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  padding-left: 3rem;
-}
-
-.aboutContent li{
-  margin-bottom: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  max-width: 28rem;
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .aboutContent h1,.settingContent h1{
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.75rem;
   font-size: 1.8rem;
 }
 
+.aboutLead{
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.steps{
+  padding-left: 1.2rem;
+}
+
+.steps li + li{
+  margin-top: 0.4rem;
+}
+
+kbd{
+  padding: 0.05rem 0.4rem;
+  font: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 0.3rem;
+}
+
+.tips{
+  list-style: none;
+}
+
+.example + .example{
+  margin-top: 1.1rem;
+}
+
+.exampleTiles{
+  display: grid;
+  grid-template-columns: repeat(5, 2.5rem);
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.exampleTiles .block{
+  height: 2.5rem;
+  font-size: 1.35rem;
+}
+
+.aboutNote{
+  margin-top: 1.5rem;
+  padding: 0.85rem 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  background: var(--surface);
+  border-left: 3px solid var(--present);
+  border-radius: 0.5rem;
+}
+
+.aboutNote strong{
+  color: var(--text);
+}
 
 /* setting */
+
 .setting{
   padding-top: 2rem;
 }
 
 .settingList{
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   list-style: none;
 }
 
 .settingList li{
-  margin-bottom: 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--surface-2);
+}
+
+.settingList li:first-child{
+  padding-top: 0;
 }
 
 .settingImg{
   position: relative;
+  flex: none;
   height: 12rem;
   width: 15rem;
 }
@@ -149,18 +272,6 @@
   left: 6.6rem;
 }
 
-/* hint */
-
-.meaning{
-  font-size: 0.9rem;
-  color: white;
-  margin: 1.5rem auto;
-  width: max-content;
-  max-width: 100%;
-  padding: 0 2.5rem;
-  line-height: 1.5rem;
-}
-
 @keyframes cogClockwise {
   from{
     transform: rotateZ(0deg);
@@ -179,108 +290,37 @@
   }
 }
 
-
 @media screen and (max-width:650px) {
+  .page{
+    padding: 1.25rem 1.25rem 0;
+  }
   .about,.setting{
     flex-direction: column;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+  .about:last-of-type .aboutImg{
+    order: 0;
+  }
+  .aboutImg{
+    flex: none;
+    width: 55%;
+    max-width: 12rem;
+    margin: 0 auto;
   }
   .aboutContent,.settingContent{
-    
-    width: 100%;
-    padding-left:4rem;
-    padding-right: 1rem;
+    max-width: none;
   }
-  .about:last-of-type{
-    margin-top: 2rem;
-  }
-  .about:last-of-type .aboutContent{
-    padding-left: 5rem;
-    margin-top: 1rem;
-    order: 3;
+  .aboutContent h1,.settingContent h1{
+    font-size: 1.5rem;
   }
   .setting{
     padding-top: 0;
   }
-  .meaning{
-    padding: 0 1.5rem;
+  .settingImg{
+    transform: scale(0.6);
+    height: 7.5rem;
+    margin: 0 auto -0.5rem;
+    transform-origin: top center;
   }
-  
-}
-
-@media screen and (max-width:500px) {
- 
-  .aboutContent{
-   font-size: 1.2rem;
-  }
-  
-}
-
-.tips{
-  list-style: none;
-}
-
-.tips li{
-  position: relative;
-}
-
-.tips li::after{
-  --bgClr:#ef3e3ed1;
-  position: absolute;
-  content: 'A';
-  top: 0;
-  left: -3rem;
-  background-color:var(--bgClr);
-  width: 2rem;
-  height: 2rem;
-  font-size: 1rem;
-  border-radius: 0.5rem;
-  display: grid;
-  place-items: center;
-}
-
-.tips li:nth-of-type(2):after{
-  --bgClr:#efc944c2;
-}
-.tips li:nth-of-type(3):after{
-  --bgClr:#41ca41a8;
-}
-
-
-
-.notExist{
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.805);
-  text-shadow: 1px 1px 0.5px red;
-  text-align: center;
-  margin-bottom: 1rem;
-  /* border: 0.1rem dashed #ef3e3ed1; */
-  border-radius: 0.2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 0.5rem 2rem;  */
-}
-
-.notExist span{
-  font-size: 0.9rem;
-  margin-left: 0.5rem;
-  position: relative;
-  margin-left: 1rem;
-  display: block;
-  height: 1.5rem;
-  width: 1.5rem;
-  color:rgb(255, 255, 255);
-  text-shadow: 1px 1px 0.5px red;
-  background-color:#ef3e3ed1;
-  border-radius: 50%;
-  border: 0.1rem dashed #ef3e3ed1;
-  cursor: pointer;
-}
-
-.notExistDel{
-  position: absolute;
-  top: 50%;
-  left:50%;
-  
-  transform: translate(-50%,-50%);
 }

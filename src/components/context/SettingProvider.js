@@ -1,38 +1,38 @@
-import React, { createContext, useContext, useState } from 'react'
-
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { loadFlag, saveFlag } from '../../lib/storage'
 
 const SettingContext = createContext()
 
-export const useSettingContext = ()=> {
+export const useSettingContext = () => {
     return useContext(SettingContext)
 }
 
-const SettingProvider = ({children}) => {
+// Storage keys predate the rename of "Grammar Check" to "Word Check"; keep them so saved choices survive.
+const SETTINGS = {
+    hardMode: { key: 'hardMode', fallback: false },
+    showHint: { key: 'showHint', fallback: true },
+    wordCheck: { key: 'grammarCheck', fallback: true },
+    colorBlind: { key: 'colorBlind', fallback: false },
+}
 
+const loadSettings = () =>
+    Object.fromEntries(Object.entries(SETTINGS).map(([name, { key, fallback }]) => [name, loadFlag(key, fallback)]))
 
-    let localShowHint = localStorage.getItem('showHint')==='false'?false:true;
-    let localGrammarCheck = localStorage.getItem('grammarCheck')==='false'?false:true;
-    console.log(localStorage.getItem('showHint'),localStorage.getItem('grammarCheck'))
-    const [showHint, setShowHint] = useState(localShowHint)
-    const [grammarCheck, setGrammarCheck] = useState(localGrammarCheck)
+const SettingProvider = ({ children }) => {
+    const [settings, setSettings] = useState(loadSettings)
 
-    const toggleHint = ()=>{
-        localStorage.setItem('showHint',!showHint)
-        setShowHint(!showHint);
-    }
+    const setSetting = useCallback((name, value) => {
+        saveFlag(SETTINGS[name].key, value)
+        setSettings((prev) => ({ ...prev, [name]: value }))
+    }, [])
 
-    const toggleGrammar = ()=>{
-        localStorage.setItem('grammarCheck',!grammarCheck)
-        setGrammarCheck(!grammarCheck);
-    }
+    const value = useMemo(() => ({ ...settings, setSetting }), [settings, setSetting])
 
     return (
-        <SettingContext.Provider value={{showHint, toggleHint,grammarCheck,toggleGrammar}}>
+        <SettingContext.Provider value={value}>
             {children}
         </SettingContext.Provider>
     )
 }
-
-
 
 export default SettingProvider

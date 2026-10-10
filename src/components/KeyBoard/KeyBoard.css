@@ -1,13 +1,16 @@
-.KeyBoard{
+.KeyBoard {
+    --keyGap: 0.4rem;
     display: flex;
     flex-direction: column;
-    gap: var(--keyGap);
-    margin: 2rem 0;
-    margin-top: 1rem;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.25rem 0.5rem 0.75rem;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
-@media screen and (max-width:600px) {
-    .KeyBoard{
-     margin-top: 2rem;
+@media (min-width: 600px) and (min-height: 700px) {
+    .KeyBoard {
+        padding-bottom: 1.25rem;
     }
 }

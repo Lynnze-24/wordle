@@ -1,54 +1,50 @@
-import React, {  useCallback, useEffect, useState } from 'react'
-import { FaArrowLeft, FaLevelDownAlt } from 'react-icons/fa'
-import { useClickwordContext } from '../context/ClickwordProvider'
+import React from 'react'
+import { FaBackspace } from 'react-icons/fa'
 import './KeyBlocks.css'
 
-const KeyBlock = ({keyItem})=> {
+const STATE_LABEL = { correct: 'correct', present: 'in the word', absent: 'not in the word' }
 
-    const [isClicking, setIsClicking] = useState(false)
-    const {clickedWord, setClickedWord} = useClickwordContext()
+// Keep focus where it is on mouse clicks, so a later physical Enter submits
+// the guess instead of re-clicking the last on-screen key.
+const keepFocus = (e) => e.preventDefault()
 
+const KeyBlock = ({ keyItem, state, pressed, onKey }) => {
+    const isWide = keyItem === 'Enter' || keyItem === 'Backspace'
+    const label = keyItem === 'Backspace'
+        ? 'Delete letter'
+        : keyItem === 'Enter'
+            ? 'Submit guess'
+            : `${keyItem.toUpperCase()}${state ? `, ${STATE_LABEL[state]}` : ''}`
 
-    
-    
-    const keyClickHandler = useCallback(()=> {
-        setIsClicking(true)
-        setTimeout(()=>{
-            setIsClicking(false)
-            if(clickedWord)setClickedWord('')
-        },100)
-    },[clickedWord,setClickedWord])
-
-    const keyBoardVirtualHandler = () => {
-            const code =(keyItem ==='Enter' || keyItem === 'Backspace') ? keyItem : `Key${keyItem.toUpperCase()}`
-            const event = new KeyboardEvent('keyup', {key: keyItem, code: code,});
-            document.dispatchEvent(event);
-            keyClickHandler()
-    }
-
-    useEffect(()=>{
-        if(clickedWord===keyItem && !isClicking){
-            keyClickHandler()
-        }
-    },[clickedWord,isClicking,keyClickHandler,keyItem])
-
-   
-    
-
-    return(
-        <div onClick={keyBoardVirtualHandler} className={`KeyBlock ${isClicking && 'pressed'}`}>
-            {keyItem ==='Enter'? (<FaLevelDownAlt style={{transform:'rotateZ(90deg)'}}/>) :
-            keyItem ==='Backspace'?(<FaArrowLeft/>) :keyItem}
-        </div>
+    return (
+        <button
+            type='button'
+            className={`KeyBlock${isWide ? ' wide' : ''}${state ? ` ${state}` : ''}${pressed ? ' pressed' : ''}`}
+            aria-label={label}
+            onMouseDown={keepFocus}
+            onClick={() => onKey(keyItem)}
+        >
+            {keyItem === 'Backspace' ? <FaBackspace aria-hidden /> : keyItem}
+        </button>
     )
 }
 
-const KeyBlocks = ({keyList,isLast}) => {
-    const keyListArr = isLast? ['Backspace',...keyList.split(''),'Enter'] :keyList.split('')
+const KeyBlocks = ({ keyList, isMiddle, isLast, letterStates, pressedKey, onKey }) => {
+    const keyListArr = isLast ? ['Enter', ...keyList.split(''), 'Backspace'] : keyList.split('')
 
     return (
         <div className='KeyBlocks'>
-            {keyListArr.map((keyItem,index)=> (<KeyBlock key={index} keyItem={keyItem} />))}
+            {isMiddle && <span className='keySpacer' />}
+            {keyListArr.map((keyItem) => (
+                <KeyBlock
+                    key={keyItem}
+                    keyItem={keyItem}
+                    state={letterStates[keyItem]}
+                    pressed={pressedKey === keyItem}
+                    onKey={onKey}
+                />
+            ))}
+            {isMiddle && <span className='keySpacer' />}
         </div>
     )
 }

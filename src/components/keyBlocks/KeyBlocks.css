@@ -1,24 +1,88 @@
-.KeyBlocks{
+.KeyBlocks {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: var(--keyGap);
 }
 
-.KeyBlock{
-    display: grid;
-    place-items: center;
-    color: white;
-    width: var(--keySize);
-    height: var(--keySize);
-    cursor: pointer;
-    user-select: none;
-    border-radius: 0.5rem;
-    background-color: #131419;
-    box-shadow: 2px 2px 5px rgb(0 0 0 / 50%), -3px -3px 7px rgb(255 255 255 / 5%);
+.keySpacer {
+    flex: 0.5 1 0;
+    max-width: 1.6rem;
 }
 
-.KeyBlock.pressed{
+.KeyBlock {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 3.3rem;
+    height: 3.4rem;
+    height: clamp(2.9rem, 7dvh, 3.6rem);
+    display: grid;
+    place-items: center;
+    padding: 0;
+    color: var(--text);
+    font: inherit;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    border-radius: var(--radius);
+    background-color: var(--bg);
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 50%), -3px -3px 7px rgb(255 255 255 / 5%);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.15s, box-shadow 0.1s, opacity 0.15s;
+}
+
+.KeyBlock.wide {
+    flex-grow: 1.55;
+    max-width: 5.2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+}
+
+.KeyBlock.wide svg {
+    font-size: 1.35rem;
+}
+
+@media (hover: hover) {
+    .KeyBlock:hover {
+        background-color: var(--surface);
+    }
+}
+
+.KeyBlock:active,
+.KeyBlock.pressed {
     box-shadow: inset 2px 2px 5px rgb(0 0 0 / 50%), inset -3px -3px 7px rgb(255 255 255 / 5%);
     text-shadow: 1px 1px 10px #f8f5f599;
+}
+
+.KeyBlock:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
+
+.KeyBlock.correct,
+.KeyBlock.present {
+    color: var(--tile-text);
+    box-shadow: none;
+    text-shadow: 0 1px 1px rgb(0 0 0 / 25%);
+}
+
+.KeyBlock.correct { background-color: var(--correct); }
+.KeyBlock.present { background-color: var(--present); }
+
+.KeyBlock.absent {
+    background-color: transparent;
+    color: var(--muted);
+    box-shadow: none;
+    opacity: 0.4;
+}
+
+@media (max-width: 360px) {
+    .KeyBlock {
+        font-size: 1rem;
+    }
+    .KeyBlock.wide {
+        font-size: 0.7rem;
+    }
 }

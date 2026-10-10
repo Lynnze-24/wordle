@@ -1,0 +1,78 @@
+.modal {
+    width: min(27rem, calc(100% - 2rem));
+    max-width: none;
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: 0 24px 64px rgb(0 0 0 / 55%);
+    overflow: hidden;
+}
+
+.modal[open] {
+    animation: modalIn 0.22s ease-out;
+}
+
+.modal::backdrop {
+    background: rgb(6 7 10 / 70%);
+    backdrop-filter: blur(2px);
+}
+
+.modalBody {
+    position: relative;
+    max-height: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.modalClose {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 1.1rem;
+    background: none;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.modalClose:hover {
+    color: var(--text);
+    background: var(--surface-2);
+}
+
+/* Bottom sheet on phones: easier to reach and dismiss. */
+@media (max-width: 480px) {
+    .modal {
+        width: 100%;
+        margin: auto 0 0;
+        max-height: 92dvh;
+        border-radius: 1.25rem 1.25rem 0 0;
+        border-bottom: none;
+    }
+    .modal[open] {
+        animation: sheetIn 0.25s ease-out;
+    }
+    .modalBody {
+        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    }
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: translateY(0.75rem) scale(0.98); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes sheetIn {
+    from { transform: translateY(100%); }
+    to { transform: none; }
+}

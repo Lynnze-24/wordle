@@ -1,0 +1,17 @@
+{
+  "short_name": "Wordle",
+  "name": "Wordle 2023",
+  "icons": [
+    {
+      "src": "images/favicon.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#131419",
+  "background_color": "#131419"
+}

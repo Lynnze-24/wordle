@@ -6,38 +6,43 @@ import {
   Route,
 } from "react-router-dom";
 import About from './pages/About';
-import ClickwordProvider from './components/context/ClickwordProvider';
+import GameProvider from './components/context/GameProvider';
 import Main from './pages/Main';
 import Setting from './pages/Setting';
-import SettingProvider from './components/context/SettingProvider';
+import SettingProvider, { useSettingContext } from './components/context/SettingProvider';
+import ToastProvider from './components/toast/Toast';
+import StatsModal from './components/stats/StatsModal';
 
-// dictionary api
-//https://api.dictionaryapi.dev/api/v2/entries/en/<word>
-
-function App() {
-
-  
+const Shell = () => {
+  const { colorBlind } = useSettingContext();
 
   return (
-    <ClickwordProvider>
-      <SettingProvider>
-    <Router>
-    <div className="App">
+    <div className={colorBlind ? 'App contrast' : 'App'}>
       <Header />
-     
+
       <Routes>
-        <Route exact path='/' element={<Main />}/>
-      
+        <Route path='/' element={<Main />} />
         <Route path='/howToPlay' element={<About />} />
         <Route path='/setting' element={<Setting />} />
-        
-       
+        <Route path='*' element={<Main />} />
       </Routes>
-     
+
+      <StatsModal />
     </div>
-    </Router>
+  );
+};
+
+function App() {
+  return (
+    <SettingProvider>
+      <GameProvider>
+        <ToastProvider>
+          <Router>
+            <Shell />
+          </Router>
+        </ToastProvider>
+      </GameProvider>
     </SettingProvider>
-    </ClickwordProvider>
   );
 }
 

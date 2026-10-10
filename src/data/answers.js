@@ -1,4 +1,6 @@
-aback
+// Possible answers: common five-letter words, offensive ones removed; each has a dictionary definition for hints.
+// One word per line; split at runtime.
+const answers = `aback
 abase
 abate
 abaya
@@ -122,7 +124,6 @@ amino
 amiss
 amity
 amnio
-among
 amour
 amped
 ample
@@ -158,7 +159,6 @@ apple
 apply
 apron
 apses
-apter
 aptly
 aquas
 arbor
@@ -180,7 +180,6 @@ aroma
 arose
 array
 arrow
-arses
 arson
 artsy
 asana
@@ -194,11 +193,9 @@ askew
 aspen
 aspic
 assay
-asses
 asset
 aster
 astir
-asura
 atlas
 atman
 atoll
@@ -264,7 +261,6 @@ baler
 bales
 balks
 balky
-balls
 balms
 balmy
 balsa
@@ -337,7 +333,6 @@ befit
 began
 beget
 begin
-begun
 beige
 being
 belay
@@ -383,7 +378,6 @@ biles
 bilge
 bills
 billy
-bimbo
 bindi
 binds
 binge
@@ -395,7 +389,6 @@ birch
 birds
 birth
 bison
-bitch
 biter
 bites
 bitsy
@@ -470,15 +463,12 @@ bombe
 bombs
 bonds
 boned
-boner
 bones
 boney
 bongo
-bongs
 bonks
 bonny
 bonus
-boobs
 booby
 booed
 books
@@ -489,10 +479,8 @@ boors
 boost
 booth
 boots
-booty
 booze
 boozy
-boppy
 borax
 bored
 borer
@@ -614,10 +602,8 @@ bused
 buses
 bushy
 busts
-busty
 butch
 butte
-butts
 buxom
 buyer
 buzzy
@@ -632,7 +618,6 @@ cabin
 cable
 cacao
 cache
-cacti
 caddy
 cadet
 cadre
@@ -758,7 +743,6 @@ chime
 chimp
 china
 chine
-ching
 chino
 chins
 chips
@@ -786,7 +770,6 @@ chute
 cider
 cigar
 cinch
-circa
 cisco
 cited
 cites
@@ -851,7 +834,6 @@ coats
 cobia
 cobra
 cocci
-cocks
 cocky
 cocoa
 codas
@@ -1064,7 +1046,6 @@ davit
 dawns
 dazed
 deals
-dealt
 deans
 dears
 deary
@@ -1112,7 +1093,6 @@ detox
 deuce
 devil
 dewar
-dhikr
 dhows
 dials
 diary
@@ -1120,7 +1100,6 @@ diced
 dices
 dicey
 dicky
-dicta
 diets
 digit
 diked
@@ -1137,7 +1116,6 @@ dines
 dingo
 dings
 dingy
-dinks
 dinky
 dinos
 diode
@@ -1195,7 +1173,6 @@ dopey
 dorks
 dorky
 dorms
-dosas
 dosed
 doses
 doted
@@ -1303,7 +1280,6 @@ dwelt
 dyads
 dyers
 dying
-dykes
 eager
 eagle
 eared
@@ -1338,7 +1314,6 @@ eider
 eidos
 eight
 eject
-ejido
 eland
 elbow
 elder
@@ -1349,7 +1324,6 @@ elite
 elope
 elude
 elute
-elven
 elves
 email
 embed
@@ -1396,7 +1370,6 @@ euros
 evade
 evens
 event
-every
 evict
 evils
 evoke
@@ -1445,17 +1418,14 @@ falls
 famed
 fancy
 fangs
-fanny
 farce
 fared
 fares
 farms
-farts
 fasts
 fatal
 fated
 fates
-fatso
 fatty
 fatwa
 fault
@@ -1472,8 +1442,6 @@ fazes
 fears
 feast
 feats
-fecal
-feces
 feeds
 feels
 feign
@@ -1839,7 +1807,6 @@ metal
 meter
 metro
 micro
-midst
 might
 miles
 minds
@@ -1943,7 +1910,6 @@ peaks
 pearl
 pedal
 peers
-penis
 penny
 perks
 pests
@@ -2153,7 +2119,6 @@ shops
 shore
 short
 shots
-shown
 shows
 sides
 siege
@@ -2209,7 +2174,6 @@ speed
 spell
 spend
 spent
-sperm
 spice
 spicy
 spike
@@ -2264,7 +2228,6 @@ stuck
 study
 stuff
 style
-sucks
 sugar
 suite
 suits
@@ -2453,11 +2416,9 @@ whale
 wheat
 wheel
 where
-which
 while
 white
 whole
-whose
 wider
 widow
 width
@@ -2496,4 +2457,6 @@ young
 yours
 youth
 yummy
-zones
+zones`;
+
+export default answers;

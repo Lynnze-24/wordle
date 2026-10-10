@@ -1,29 +1,114 @@
-.blocksCon{
-    display: flex;
-    gap: var(--blockGap);
+.board {
+    --gap: 0.35rem;
+    --flip-step: 300ms;
+    --flip: 500ms;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: var(--gap);
+    aspect-ratio: 5 / 6;
+    width: min(86vw, 20rem);
+    width: min(100cqw, 100cqh * 5 / 6, 22rem);
+    container-type: inline-size;
 }
 
-.block{
-    color: white;
-    width: var(--blockSize);
-    height: var(--blockSize);
+.blocksCon {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--gap);
+}
+
+.block {
+    --state-bg: transparent;
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    color: var(--text);
+    border: 2px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 2rem;
+    font-size: 9.5cqi;
+    font-weight: 800;
+    line-height: 1;
     text-transform: uppercase;
-    font-size: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.5rem;
-    border: 1px solid white;
+    user-select: none;
 }
 
-.correct{
-    background-color: #41ca41a8;
+.block.filled {
+    border-color: var(--line-strong);
+    animation: pop 0.1s ease-out;
 }
 
-.included{
-    background-color: #efc944c2;
+.block.correct { --state-bg: var(--correct); }
+.block.present { --state-bg: var(--present); }
+.block.absent { --state-bg: var(--absent); }
+
+.block.correct,
+.block.present,
+.block.absent {
+    background-color: var(--state-bg);
+    border-color: transparent;
+    color: var(--tile-text);
+    text-shadow: 0 1px 1px rgb(0 0 0 / 25%);
 }
 
-.wrong{
-    background-color: #ef3e3ed1;
+.reveal .block {
+    animation: flip var(--flip) ease-in-out backwards;
+    animation-delay: calc(var(--i) * var(--flip-step));
+}
+
+.win .block {
+    animation: bounce 0.5s ease-in-out;
+    animation-delay: calc(var(--i) * 90ms);
+}
+
+.shake {
+    animation: shake 0.45s ease-in-out;
+}
+
+@keyframes pop {
+    from { transform: scale(0.85); }
+    50% { transform: scale(1.08); }
+    to { transform: scale(1); }
+}
+
+/* Unrevealed look until the tile is edge-on, then the result colour. */
+@keyframes flip {
+    0% {
+        transform: rotateX(0);
+        background-color: transparent;
+        border-color: var(--line-strong);
+        color: var(--text);
+        text-shadow: none;
+    }
+    50% {
+        transform: rotateX(90deg);
+        background-color: transparent;
+        border-color: var(--line-strong);
+        color: var(--text);
+        text-shadow: none;
+    }
+    50.1% {
+        transform: rotateX(90deg);
+        background-color: var(--state-bg);
+        border-color: transparent;
+    }
+    100% {
+        transform: rotateX(0);
+        background-color: var(--state-bg);
+        border-color: transparent;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-28%); }
+    60% { transform: translateY(4%); }
+    80% { transform: translateY(-6%); }
+}
+
+@keyframes shake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-7px); }
+    40%, 60% { transform: translateX(7px); }
 }
